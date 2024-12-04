@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="/assets/pico.yellow.min.css" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <title>Your life</title>
+</head>
+
+<body>
+    <main class="container">
+        <article>
+            <h1>Your life</h1>
+            <label>
+                Age: <span class="input-template" id="age-in-years">00</span> years
+                <input type="range" id="current-age-range" value="25" min="0" max="101" />
+            </label>
+            <hr />
+            <section>
+                <h2>Your lifeline</h2>
+                <p>A person in the US will live, on average, to about 80 which is about 4174 weeks.</p>
+                <section>
+                    <div id="weeks">
+                    </div>
+                </section>
+                <div class="templates">
+                    <div class="one-week"></div>
+                </div>
+            </section>
+            <hr />
+            <section id="this-year-section">
+                <h2>This year</h2>
+                <p>This year you get 52 weeks or about <span id="percentage-of-life">0%</span> of your life</p>
+                <div id="this-year">
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                    <div class="one-week"></div>
+                </div>
+                <ul>
+                    <li>
+                        <p><span class="output-template">52</span> Saturday mornings to make pancakes</p>
+                    </li>
+                    <li>
+                        <p><span class="output-template">12</span> major federal holidays</p>
+                    </li>
+                    <li>
+                        <p>About <span class="output-template">250</span> working days to do something good</p>
+                    </li>
+                    <li>
+                        <p>About <span class="output-template">20</span> perfect sunsets</p>
+                    </li>
+                </ul>
+            </section>
+            <hr>
+            <section>
+                <h2>Loved ones</h2>
+                <p>We never know how much time we have with those that we love.</p>
+                <p>Appreciate them in all of the moments you share. Tell them what they mean to you.
+                    Treasure
+                    the sunsets, the roadtrips, the loud dinners, and quiet walks in the park.</p>
+                <p>The Fates, who spin, measure, and cut the thread of each life are cynical in their timing.</p>
+            </section>
+        </article>
+    </main>
+
+    <script>
+        const currentAge = 36;
+        const currentAgeInWeeks = currentAge * 52;
+        const expectedLifeDurationInWeeks = 4174;
+
+        const age = document.getElementById("current-age-range");
+        age.addEventListener("input", (event) => {
+            const value = event.target.value;
+            updateCurrentAge(value)
+            drawWeeks(Math.max(expectedLifeDurationInWeeks, value * 52), value * 52)
+        });
+        updateCurrentAge(age.value);
+        updateLifePercent(expectedLifeDurationInWeeks);
+
+        function updateCurrentAge(age) {
+            document.getElementById("age-in-years").innerText = age
+        }
+
+        function updateLifePercent(expectedLifeLength) {
+            document.getElementById("percentage-of-life").innerText = `${Math.round(52 / expectedLifeLength * 1000) / 10}%`;
+        }
+
+
+
+        function drawWeeks(lifespan, ageInWeeks) {
+            const weeksContainer = document.getElementById("weeks");
+            const week = document.getElementsByClassName('one-week')[0];
+
+            weeksContainer.innerHTML = '';
+            for (let i = 0; i < lifespan; i++) {
+                let nextWeek = week.cloneNode(true);
+                if (i < ageInWeeks) {
+                    nextWeek.classList.add('past')
+                } else {
+                    nextWeek.classList.remove('past');
+                }
+                weeksContainer.append(nextWeek)
+            }
+        }
+
+
+        drawWeeks(4174, 10)
+        drawWeeks(4174, currentAgeInWeeks)
+        drawWeeks(4174, currentAgeInWeeks)
+        drawWeeks(4174, currentAgeInWeeks)
+        drawWeeks(4174, currentAgeInWeeks)
+
+    </script>
+</body>
+
+</html>
